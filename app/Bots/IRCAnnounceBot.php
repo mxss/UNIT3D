@@ -23,6 +23,9 @@ class IRCAnnounceBot
 
     private $registered = false;
 
+    /**
+     * IRCAnnounceBot constructor.
+     */
     public function __construct()
     {
         $this->username = config('irc-bot.username');
@@ -64,21 +67,35 @@ class IRCAnnounceBot
         }
     }
 
+    /**
+     * @param $data
+     */
     private function send_data($data)
     {
         fwrite($this->socket, "$data\r\n");
     }
 
+    /**
+     * @param $channel
+     * @param $string
+     */
     private function say($channel, $string)
     {
         $this->send_data("PRIVMSG $channel $string");
     }
 
+    /**
+     * @param $channel
+     */
     private function join($channel)
     {
         $this->send_data("JOIN $channel");
     }
 
+    /**
+     * @param $channel
+     * @param $message
+     */
     public function message($channel, $message)
     {
         // Messages an specific IRC Channel
@@ -89,6 +106,10 @@ class IRCAnnounceBot
         $this->say($channel, $message);
     }
 
+    /**
+     * @param $message
+     * @param null $channels
+     */
     public function broadcast($message, $channels = null)
     {
         // Broadcast to all IRC Channels in config

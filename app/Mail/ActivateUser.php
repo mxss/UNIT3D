@@ -44,6 +44,9 @@ class ActivateUser extends Mailable
         $this->code = $code;
     }
 
+    /**
+     * @return ActivateUser
+     */
     public function build()
     {
         return $this->markdown('emails.activate')

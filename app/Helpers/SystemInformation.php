@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\DB;
 
 class SystemInformation
 {
+    /**
+     * @return float|void
+     */
     public function avg()
     {
         if (is_readable('/proc/loadavg')) {
@@ -26,6 +29,9 @@ class SystemInformation
         }
     }
 
+    /**
+     * @return array
+     */
     public function memory()
     {
         if (is_readable('/proc/meminfo')) {
@@ -51,6 +57,11 @@ class SystemInformation
         ];
     }
 
+    /**
+     * @param $bytes
+     * @param int $precision
+     * @return string
+     */
     protected function formatBytes($bytes, $precision = 2)
     {
         $units = ['B', 'KB', 'MB', 'GB', 'TB'];
@@ -66,6 +77,9 @@ class SystemInformation
         return round($bytes, $precision).' '.$units[$pow];
     }
 
+    /**
+     * @return array
+     */
     public function disk()
     {
         $total = disk_total_space(base_path());
@@ -78,6 +92,9 @@ class SystemInformation
         ];
     }
 
+    /**
+     * @return float
+     */
     public function uptime()
     {
         if (is_readable('/proc/uptime')) {
@@ -85,11 +102,17 @@ class SystemInformation
         }
     }
 
+    /**
+     * @return Carbon
+     */
     public function systemTime(): Carbon
     {
         return Carbon::now();
     }
 
+    /**
+     * @return array
+     */
     public function basic()
     {
         return [
